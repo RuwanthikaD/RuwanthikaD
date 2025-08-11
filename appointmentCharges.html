@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Appoinment Scheduling Management</title>
+
+    <!-- link icon  -->
+    <link rel="icon" href="resources/images/DR.pet (1).png">
+
+    <!-- link bootstrap 5.2  -->
+    <link rel="stylesheet" href="resources/bootstrap-5.2.3/css/bootstrap.min.css">
+    <script src="resources/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+
+    <!-- link fontawesome-free-6  -->
+
+    <link rel="stylesheet" href="resources/fontawesome-free-6.6.0/css/all.css">
+
+    <!-- link Common CSS  -->
+    <link rel="stylesheet" href="CommonStyleSheet.css">
+
+    <!-- link Jquery  -->
+    <script src="resources/JQuery/Jqury3.7.1.min.js"></script>
+
+    <!-- link data table  -->
+    <link rel="stylesheet" href="resources/dataTables/datatables.min.css">
+    <script src="resources/dataTables/datatables.min.js"></script>
+
+
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- title  - Start-->
+        <div class="row">
+            <div class="col-12 text-center title">
+                <h3><i class="fa-regular fa-calendar-check p-2"></i>Appoinment Scheduling Management</h3>
+            </div>
+        </div>
+        <!-- title  - End-->
+
+
+
+
+        <div class="row m-3 mb-5">
+            <div class="col-2">
+                <button class="btn fw-bold  text-end text-center btn-color-print" type="button" style="width: 150px;"><i
+                        class="fa-solid fa-print p-1"></i>Print Table</button>
+            </div>
+
+            <div class="col-7"></div>
+            <div class="col-3"> <!-- offcanvas button  -->
+                <button class="btn fw-bold btn-color " type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasTop" aria-controls="offcanvasTop" style="width: 250px;"><i
+                        class="fa-solid fa-file-medical"></i> Add New Appoinment</button>
+            </div>
+            
+
+         
+        </div>   <!-- print button  -->
+     
+        <!-- offcanvas -start  -->
+
+
+
+        <div class="offcanvas offcanvas-top form-area" style="height: 100%;" id="offcanvasTop"
+            aria-labelledby="offcanvasTopLabel">
+            <div class="offcanvas-header ">
+
+                <h4 id="offcanvasTopLabel" class="fw-bold title p-1"><img src="resources/images/PetLogo.png" alt=""
+                        width="50px">Appoinment Scheduling Form</h4>
+
+                <button type="button" class="btn-close text-reset btn-close-white" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+            </div>
+
+            <!-- form -start  -->
+
+            <div class="offcanvas-body  ">
+
+                <!-- Appoinment Scheduling form -start  -->
+                <div class="card">
+                    <div class="card-body">
+
+                        <!-- didn't use action and method in form tag -use onsubmit="return false" -->
+                        <form onsubmit="return false">
+
+                            <!-- Appoinment no - start-->
+                            <div class="row mt-2">
+                                <div class="col-4 ">
+                                    <label for="enterNoOfPets" class="form-label text-end ">Appoinment No :
+                                       <span class="text-danger">(Required)</span></label>
+
+
+                                    <div class="input-group">
+                                        <span class="input-group-text fw-bold">
+                                            <i class="fa-solid fa-notes-medical appoinment-no"></i>
+                                        </span>
+                                        <input type="text" class="form-control" placeholder="Appoinment Number" id="appoinmentNoID">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <!-- Appoinment no  - end-->
+
+
+                            <!-- pet owner /pet ID -start  -->
+
+                            <div class="row mt-4">
+                                <div class="col-2"></div>
+                                <div class="col-4">
+                                    <label for="" class="form-label">Pet Owner ID : <span class="text-danger">(Required)</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fa-solid fa-user "></i>
+
+                                        </span>
+                                        <input type="text" class="form-control" placeholder="Select Pet Owner ID.." id="petOwnerID"
+                                            onkeyup="textValidator(this,'^[A-Z][A-Za-z0-9]{5}$','appoinment','petownerid')">
+                                    </div>
+                                    <div class="form-text">Ex:IT1000/R19000</div>
+                                </div>
+
+
+
+                                <div class="col-4">
+                                    <label for="" class="form-label">Pet ID : <span class="text-danger">(Required)</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fa-solid  fa-dog "></i>
+                                        </span>
+                                        <input type="text" class="form-control" placeholder="Select Pet ID.." id="petID"
+                                            onkeyup="textValidator(this,'^[A-Z][A-Z 0-9]{3}$','appoinment','petid')">
+                                    </div>
+                                    <div class="form-text">Ex:P100</div>
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
+
+                            <!-- pet owner /pet ID -End  -->
+
+                            <!-- appoinment date -start  -->
+                            <div class="row mt-4">
+                                <div class="col-2"></div>
+                                <div class="col-4">
+                                    <label for="" class="form-label">Appoinment Date : <span class="text-danger">(Required)</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fa-regular fa-calendar "></i>
+
+                                        </span>
+                                        <input type="date" class="form-control" id="appoinmentDateID"
+                                            onchange="dateValidator(this,'appoinment','appoinmentdate')"
+                                            onkeydown="return false">
+                                    </div>
+                                    <div class="form-text">Ex:2025-11-31</div>
+                                </div>
+
+
+
+                                <!-- Appoinment time -start -->
+                                <div class="col-4">
+                                    <label for="" class="form-label">Appoinment time : <span class="text-danger">(Required)</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fa-regular fa-clock "></i>
+                                        </span>
+                                        <input type="time" class="form-control" id="appoinmentTimeID"
+                                            onchange="dateValidator(this,'appoinment','appoinmenttime')"
+                                            onkeydown="return false">
+                                    </div>
+                                    <div class="form-text">Ex:9.30a.m</div>
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
+                            <!-- appoinment date / appoinment time-end  -->
+
+                            <!-- appoinment type /appoinment charges/ appoinment status -start  -->
+                            <div class="row mt-5">
+                                <div class="col">
+                                    <label for="" class="form-label"> Appoinment Type : <span class="text-danger">(Required)</span></label>
+
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fa-solid fa-laptop-medical"></i>
+                                        </span>
+                                        <select name=""  class="form-select" id="appoinmentTypeID"
+                                            onchange="staticValidator(this,'appoinment','appoinmenttype')">
+                                            
+                                            <option value="" selected disabled>Select Appoinment Type..</option>
+                                            <option value="Check Up">Check Up</option>
+                                            <option value="Surgery">Surgery</option>
+                                            <option value="Vaccination">Vaccination</option>
+                                            <option value="Scan">Scan</option>
+                                            <option value="X-ray">X-ray</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-text">Select need service..</div>
+
+
+                                </div>
+                                <div class="col">
+                                    <label for="" class="form-label"> Appoinment Charges : <span class="text-danger">(Required)</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text fw-bold">
+                                            RS :
+                                        </span>
+                                        <input type="text" class="form-control" id="appoinmentchargesID"
+                                            onkeyup="textValidator(this,'^[1-9][0-9 .]{1,9}$','appoinment','appoinmentcharges')">
+                                    </div>
+                                    <div class="form-text">Ex:2000.00</div>
+
+                                </div>
+                                <div class="col">
+                                    <label for="" class="form-label"> Appoinment Status : <span class="text-danger">(Required)</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text fw-bold">
+                                            <i class="fa-solid fa-flag"></i>
+                                        </span>
+                                        <select name=""  class="form-select" id="appoinmentstatusID"
+                                            onchange="staticValidator(this,'appoinment','status_id')">
+                                            <option value="" selected disabled>Select Appoinment Status..</option>
+                                            <option value="Scheduled">Scheduled</option>
+                                            <option value="Completed">Completed</option>
+                                            <option value="ReScheduled">ReScheduled</option>
+                                            <option value="Cancled">Cancled</option>
+                                            <option value="Other">Other</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-text">Select Appoinment Current Status..</div>
+                                   
+                                </div>
+                            </div>
+                            <!-- appoinment type /appoinment charges/ appoinment status -end  -->
+
+                            <!-- Note -start  -->
+                            <div class="row mt-3">
+                                <div class="col-8">
+                                    <label for="" class="form-label"> Note :</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </span>
+                                        <textarea name="" id="appoinmentNoteID" class="form-control" placeholder="Enter note.."  onkeyup="textValidator(this,'^[A-Za-z0-9@%&!()/,.$#:;=+*_-\\s{}^,]{1,500}$','appoinment','note')"></textarea>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            <!-- button -start  -->
+                            <div class="row mt-5">
+
+                                <div class="col-3">
+                                </div>
+
+                                <div class="col-9 text-end">
+                                    <button type="reset" class="btn btn-color-clear"><i class="fa-solid fa-recycle"></i>
+                                        CLEAR</button>
+                                    <button type="button" class="btn btn-color-update"><i class="fa-solid fa-pen"></i>
+                                        UPDATE</button>
+                                    <button type="submit" class="btn btn-color-add" onclick="submitFormButton();"><i class="fa-solid fa-plus"></i>
+                                        ADD APPOINMENT</button>
+                                </div>
+
+                            </div>
+
+
+
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <!-- -------------------------------------------------------------------------------------------------- -->
+
+
+        <!-- Appoinment table -start  -->
+
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <table class="table table-bordered table-hover table-striped" id="appoinmentTableID">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Pet Owner ID</th>
+                            <th>Pet ID</th>
+                            <th>Appoinment Date</th>
+                            <th>Appoinment Time</th>
+                            <th>Appoinment Type</th>
+                            <th>Appoinment Charges</th>
+                            <th>Appoinment Status</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="appoinmentTableBodyID">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ------------------------------------------------------------------------------------------------- -->
+
+
+
+        <!-- APPOINMENT SCHEDULING DETAILS - PRINT  -->
+        <div class="modal fade" id="appoinmentSchedulingPrintModelID" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+
+
+
+                <div class="modal-content">
+
+                    <div id="appoinmentSchedulingModelBodyID">
+                        <div class="modal-header">
+                            <h5 class="modal-title bg-dark text-white" id="staticBackdropLabel" style="width: 480px;">
+                                <img src="resources/images/PetLogo.png" alt="" width="50px">Appoinment Scheduling
+                                Details | Print Page
+                            </h5>
+                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                        </div>
+
+                        <div class="modal-body">
+                            <!-- print mode pet card -start  -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <table class="table table-striped">
+
+                                        <tr>
+                                            <th>Pet Owner ID</th>
+                                            <td>:</td>
+                                            <td id="appoinmentPrintPetOwnerID"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Pet ID</th>
+                                            <td>:</td>
+                                            <td id="appoinmentPrintPetID"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Appoinment Date </th>
+                                            <td>:</td>
+                                            <td id="appoinmentPrintDateID"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Appoinment Time</th>
+                                            <td>:</td>
+                                            <td id="appoinmentPrintTimeID"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Appoinment Charges</th>
+                                            <td>:</td>
+                                            <td id="appoinmentPrintTypeID"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Status</th>
+                                            <td>:</td>
+                                            <td id="appoinmentPrintStatusID"></td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            onclick="refreshappoinmentTable();">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="printAppoinment();">Print
+                            Page</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <script src="JS-files/common.js"></script>
+    <script src="JS-files/commonValidation.js"></script>
+    <script src="JS-files/appoinmentScheduling.js"></script>
+
+</body>
+
+</html>
